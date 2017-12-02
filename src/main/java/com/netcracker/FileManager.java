@@ -9,6 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileManager {
+    /**
+     * Получает расширение файла
+     * @param mystr полное имя файла
+     * @return расширение файла
+     */
     public static String getFileExtension(String mystr) {
         /*Pattern p = Pattern.compile("\\.\\w+$");
         Matcher m = p.matcher(mystr);
@@ -21,6 +26,12 @@ public class FileManager {
     }
 
     public static List<String> listFiles = new ArrayList<String>(); //static, чтобы хранить значения адресов файлов
+
+    /**
+     * Раскручивает папку, вытаскивает все файлы из папки и подпапок
+     * @param directory адрес папки
+     * @return ArrayList c полным адресом файлов
+     */
     public static List<String> processAllFilesFromDirectory(File directory)
     {
         for (File item : directory.listFiles())
@@ -53,6 +64,10 @@ public class FileManager {
         }
     }*/
 
+    /**
+     * Считает количество файлов с определенным расширением
+     * @return HashMap с раширениями и их количеством (ключ-значение)
+     */
     public static Map<String,Integer> countOfFiles(){
         Map<String, Integer> map = new HashMap<String, Integer>();
         String temp;
