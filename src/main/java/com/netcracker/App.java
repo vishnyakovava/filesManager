@@ -17,23 +17,22 @@ public class App
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Input directory address:");
         String inputDirectory = reader.readLine();
+        File dirFile = new File(inputDirectory);
+        FileManager dir = new FileManager(inputDirectory);
 
-        File dir = new File(inputDirectory);
 
+        List<String> listFiles = dir.processAllFilesFromDirectory(dirFile);
         System.out.println("Files:");
-        List<String> list = FileManager.processAllFilesFromDirectory(dir);
-        for(int i=0; i<list.size(); i++){
-            System.out.println(list.get(i));
-        }
-        System.out.println("Count:");
-        Map<String,Integer> map = FileManager.countOfFiles();
+        for(String s:listFiles) System.out.println(s);
+
+        System.out.println("Count of files:");
+        Map<String,Integer> map = dir.countOfFiles();
         for(Map.Entry<String, Integer> i: map.entrySet()){
             int value = i.getValue();
             String key = i.getKey();
             System.out.println("Extension: " + key + ", count: " + value);
 
         }
-
 
     }
 }

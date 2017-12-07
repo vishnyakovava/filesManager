@@ -9,30 +9,37 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileManager {
+    private String directory;
+    public static List<String> listFiles = new ArrayList<String>(); //static, чтобы хранить значения адресов файлов
+
+    public FileManager(String directory){
+        this.directory = directory;
+    }
+
     /**
      * Получает расширение файла
      * @param mystr полное имя файла
      * @return расширение файла
      */
-    public static String getFileExtension(String mystr) {
-        /*Pattern p = Pattern.compile("\\.\\w+$");
+    public String getFileExtension(String mystr) {
+        Pattern p = Pattern.compile("\\.\\w+$");
         Matcher m = p.matcher(mystr);
-        m.find();
-        String ext = m.group();
-        return ext;*/
+        String ext = "";
+        while (m.find()) {
+            ext = m.group();
+        }
+        return ext;
 
-        int index = mystr.lastIndexOf('.');//indexOf('.');
-        return index == -1? null : mystr.substring(index);
+        /*int index = mystr.lastIndexOf('.');//indexOf('.');
+        return index == -1? null : mystr.substring(index);*/
     }
-
-    public static List<String> listFiles = new ArrayList<String>(); //static, чтобы хранить значения адресов файлов
 
     /**
      * Раскручивает папку, вытаскивает все файлы из папки и подпапок
      * @param directory адрес папки
      * @return ArrayList c полным адресом файлов
      */
-    public static List<String> processAllFilesFromDirectory(File directory)
+    public List<String> processAllFilesFromDirectory(File directory)
     {
         for (File item : directory.listFiles())
         {
@@ -49,26 +56,11 @@ public class FileManager {
         return listFiles;
     }
 
-   /* public static void processFilesDirsFromDirectory(File directory)
-    {
-        List<String> listFilesDirs = new ArrayList<String>();
-        if(directory.isDirectory()){
-            for(File item: directory.listFiles()){
-                if(item.isDirectory()){
-                    System.out.println("Directory: "+item.getPath());
-                }
-                else {
-                    System.out.println("File: " + item.getPath()+", extension: "+getFileExtension(item.getPath()));
-                }
-            }
-        }
-    }*/
-
     /**
      * Считает количество файлов с определенным расширением
      * @return HashMap с раширениями и их количеством (ключ-значение)
      */
-    public static Map<String,Integer> countOfFiles(){
+    public Map<String,Integer> countOfFiles(){
         Map<String, Integer> map = new HashMap<String, Integer>();
         String temp;
         for(int i=0; i<listFiles.size(); i++) {
